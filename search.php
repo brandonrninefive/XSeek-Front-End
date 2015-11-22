@@ -112,6 +112,7 @@ if (isset($_GET['swap']))
   <meta http-equiv="content-type" content="text/html; charset=windows-1250">
   <meta name="generator" content="PSPad editor, www.pspad.com">
   <title><?php $pageTitle ?></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="searchcss.css" type="text/css" />
 	<script type="text/javascript">
 
@@ -810,18 +811,18 @@ if (isset($_GET['swap']))
 		fclose($handle);
 	}
 ?>
-<form action="search.php" name=f method="get" target="_self">
+<form role="form" action="search.php" name=f method="get" target="_self">
 <table cellpadding=0 cellspacing=0>
 	<tr valign="middle" >
 	  <td valign="middle">
 	  <a href="index.php" target="_self"><img src="small-logo.png" border="0" alt="XSACT"/></a></td>
   	<td valign="left" >
-		<input name="keyword" type="text" title="XSACT Search" value="<?php echo $_GET['keyword']; ?>" size="50" id="keyword" />
+		<input class="form-control" name="keyword" type="text" title="XSACT Search" value="<?php echo $_GET['keyword']; ?>" size="50" id="keyword" />
 		<input name=btnG type="hidden" value="Search"/>
 		<input name="cluster" id="cluster" type="hidden" value="<?php echo $_GET['cluster'];?>"/>
 		<input name="clusterid" id="clusterid" type="hidden" value="<?php echo $_GET['clusterid'];?>"/>
 
-		<input type="submit" value="Search"/>
+		<input class="btn btn-default" type="submit" value="Search"/>
 		<label ><font size="2.0">Number of results:</font></label>
 		<input name="nresults" id="nresults" size=1 value=
 		<?php
@@ -949,7 +950,7 @@ else
 
 <div class="g">
 
-<input name="Compare" value="Compare" type="submit" onClick="viewDiff();" />
+<input class="btn btn-default" name="Compare" value="Compare" type="submit" onClick="viewDiff();" />
 <?php
 $dfsize;
 
@@ -1278,7 +1279,7 @@ if($groupbysearch=="no" && $dataset=="Amazon")
           <td><div align="left">Comments:</div></td>
           <td><label>
             <textarea name="comments" id="comments" cols="69" rows="3"></textarea>
-            <input type="submit" name="button2" id="button2" value="submit" />
+            <input class="btn btn-default" type="submit" name="button2" id="button2" value="Submit" />
           </label></td>
         </tr>
         </form>

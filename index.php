@@ -6,27 +6,30 @@
 	<meta name="viewport" content="width=1450, initial-scale=1">
 	<base target="_blank">
 	<title>XSeek</title>
-	<link rel="stylesheet" href="homecss.css" type="text/css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="homecss.css" type="text/css">
 	<script type="text/javascript" src="searchscript.js"></script>
 </head>
 
-<body onload="document.f.keyword.focus();">
+<body style="min-width:1450px">
+	<div id="imgdiv">
 	<a href="index.php" target="_self">
 		<img alt="XSACT" src="logo.png">
 	</a>
-	<form action="search.php" name="f" method="get" target="_self">
+	</div>
+	<form class="form-inline" role="form" action="search.php" name="f" method="get" target="_self">
 		<p>
-			<input maxlength=2048 name=keyword size=45 title="Search" id="keyword" />
-			<input type="submit" name="search" id="search" value="Search" />
+			<input style="width:600px" class="form-control" placeholder="XML Search Author, Sigmod Conference, etc." maxlength=2048 name=keyword title="Search" id="keyword" />
+			<input class="btn btn-default" type="submit" name="search" value="Search" />
 			<label>Number of results:</label>
-			<input name="nresults" id="nresults" size=1 value="20" />
+			<input style="width:60px" class="form-control" name="nresults" id="nresults" value="20" />
 			<input type="hidden" name="btnG" value="no" />
 			<br>
 			<label class="labels">DataSet:</label>
 			<label id="dataset">DBLP</label>
 			<a href="#" onclick="viewxml();" id="view">Download Data</a>
 			<label class="labels">&nbsp;Snippet Size&nbsp;</label>
-			<select name="size" id="size">
+			<select style="width:80px" class="form-control" name="size" id="size">
 				<option>5</option>
 				<option>6</option>
 				<option>7</option>
@@ -40,7 +43,7 @@
 				<option>15</option>
 			</select>
 			<label class="labels">&nbsp;&nbsp;&nbsp;Comparison Table Size&nbsp;</label>
-			<select name="DFS" id="DFS" onchange="updateDfsSize(this);">
+			<select style="width:80px" class="form-control" name="DFS" id="DFS">
 				<option selected="selected">5</option>
 				<option>6</option>
 				<option>7</option>
@@ -57,10 +60,7 @@
 		<p id="examples">
 			<!--<input type="radio" name="swap" value="1">Single-Swap</input><input type="radio" name="swap" value="2" checked>Multi-Swap</input>-->
 			Example queries:
-			<span id="queries"><a href="#" onclick="search_query('xml search author'); return false;">xml search author</a>, <a href="#" onclick="search_query('sigmod conference'); return false;">sigmod conference</a></span>
-			<script type="text/javascript">
-				//<?php include 'sample_queries.js'; ?>
-			</script>
+			<span id="queries"><a href="#" onclick="search_query('XML Search Author'); return false;">XML Search Author</a>, <a href="#" onclick="search_query('Sigmod Conference'); return false;">Sigmod Conference</a></span>
 			<input type="hidden" name="page" id="page" value="0">
 		</p>
 	</form>
