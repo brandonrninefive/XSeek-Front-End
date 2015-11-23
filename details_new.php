@@ -154,6 +154,12 @@
 
           echo "\\".ucfirst($resultsArray[$i]["ResultType"])."\\";
 
+          foreach(array_keys($resultsArray[$i]) as $key)
+          {
+            if(!in_array($key, $nodeTitleAttributes) && $key != "ResultType")
+              echo ucfirst($key).": ".$resultsArray[$i][$key]."<br><br>";
+          }
+
           echo '</span>';
       }
 
