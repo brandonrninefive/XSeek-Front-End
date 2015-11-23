@@ -2,7 +2,7 @@ XSeek Front-End
 ========================
 The front-end for XSeek, an XML-based search engine being developed at NJIT
 
-URL: http://www.xseek.njit.edu/
+URL: http://xseek.njit.edu/
 
 <br>
 Things Completed This Week:
