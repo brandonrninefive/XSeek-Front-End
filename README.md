@@ -1,5 +1,6 @@
-<h1>XSeek Front-End</h1>
-<h3>The front-end for XSeek, an XML-based search engine being developed at NJIT</h3>
+XSeek Front-End
+----------------------
+The front-end for XSeek, an XML-based search engine being developed at NJIT
 
 <br>
 <h2>Things Completed This Week:</h2>
