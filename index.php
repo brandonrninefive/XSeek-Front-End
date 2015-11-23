@@ -17,6 +17,7 @@
 		<img alt="XSACT" src="logo.png">
 	</a>
 	</div>
+	<div id="formdiv">
 	<form class="form-inline" role="form" action="search.php" name="f" method="get" target="_self">
 		<p>
 			<input style="width:600px" class="form-control" placeholder="XML Search Author, Sigmod Conference, etc." maxlength=2048 name=keyword title="Search" id="keyword" />
@@ -64,6 +65,7 @@
 			<input type="hidden" name="page" id="page" value="0">
 		</p>
 	</form>
+	</div>
 	<p id="about">
 		<a href="http://chenwsdb.fulton.ad.asu.edu/xseek/home.htm">About XSeek</a>
 	</p>

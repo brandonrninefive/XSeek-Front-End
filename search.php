@@ -811,20 +811,16 @@ if (isset($_GET['swap']))
 		fclose($handle);
 	}
 ?>
-<form role="form" action="search.php" name=f method="get" target="_self">
-<table cellpadding=0 cellspacing=0>
-	<tr valign="middle" >
-	  <td valign="middle">
+<form role="form" class="form-inline" action="search.php" name=f method="get" target="_self">
 	  <a href="index.php" target="_self"><img src="small-logo.png" border="0" alt="XSACT"/></a></td>
-  	<td valign="left" >
-		<input class="form-control" name="keyword" type="text" title="XSACT Search" value="<?php echo $_GET['keyword']; ?>" size="50" id="keyword" />
+		<input class="form-control" name="keyword" type="text" title="XSeek Search" value="<?php echo $_GET['keyword']; ?>" size="50" id="keyword" />
 		<input name=btnG type="hidden" value="Search"/>
 		<input name="cluster" id="cluster" type="hidden" value="<?php echo $_GET['cluster'];?>"/>
 		<input name="clusterid" id="clusterid" type="hidden" value="<?php echo $_GET['clusterid'];?>"/>
 
 		<input class="btn btn-default" type="submit" value="Search"/>
 		<label ><font size="2.0">Number of results:</font></label>
-		<input name="nresults" id="nresults" size=1 value=
+		<input style="width:60px" class="form-control" name="nresults" id="nresults" size=1 value=
 		<?php
 		if($nresults!="")
 			echo $nresults;
@@ -836,7 +832,7 @@ if (isset($_GET['swap']))
    	<label></label>
 
     <label>&nbsp;&nbsp;<font size="2.5">Snippet Size&nbsp;<?php if ($_GET['chkNum']) echo $_GET['chkNum'][1];?></font></label>
-    <select name="size" id="size" >
+    <select style="width:80px" class="form-control" name="size" id="size" >
 		<?php
 			$size = $_GET['size'];
 			for ($i = 5; $i <=15; $i++)
@@ -856,7 +852,7 @@ if (isset($_GET['swap']))
 		}?>
 	  </select>
 	  	<label>&nbsp;&nbsp;<font size="2.5">Comparison Table Size&nbsp;</font></label>
-	  	<select name="DFS" id="DFS" onchange="javascript:updateDfsSize(this);">
+	  	<select style="width:80px" class="form-control" name="DFS" id="DFS">
 	  	<option selected="selected">5</option>
 	  	<option>6</option>
 	  	<option>7</option>
@@ -876,18 +872,10 @@ if (isset($_GET['swap']))
 			}
 		?>
 		<br>
-		Example queries: <span id="queries"><a href="#" onclick="search_query('xml search author'); return false;">xml search author</a>, <a href="#" onclick="search_query('sigmod conference'); return false;">sigmod conference</a></span>
+		Example queries: <span id="queries"><a href="#" onclick="search_query('XML Search Author'); return false;">XML Search Author</a>, <a href="#" onclick="search_query('Sigmod Conference'); return false;">Sigmod Conference</a></span>
     <input type="hidden" name="page" id="page" value="0"/>
 	  <br>
-	</td>
-</tr>
-</table>
-</form>
-
-<table border=0 cellpadding=0 cellspacing=0 width=100% class="t bt">
-	<tr>
-<td align=left nowrap>
-  <font size=-1>
+  </form>
   Results <?php 	$file_handle = fopen("sr/resultnum".$timestamp.".txt", "r");
 	global $num;
 	$num = fgets($file_handle);
@@ -928,7 +916,7 @@ if (isset($_GET['swap']))
 if ($num == 0)
 {
 ?>
-<p>Oops! No query result from XSACT. <p> Make sure you have chosen the correct <B>dataset</B>, and type in the <B>correct</B> keyword.<br/> <br/>
+<p>Oops! No query result from XSeek. <p> Make sure you have chosen the correct <B>dataset</B>, and type in the <B>correct</B> keyword.<br/> <br/>
 <?php
 }
 else
@@ -1194,7 +1182,6 @@ if($groupbysearch=="no" && $dataset=="Amazon")
 </div>
 </div>
     <?php
-		echo "<div style='text-align:center'>";
 		$link = floor($num / 10);
 		if ($num > $link * 10 || $num == 0)
 		{
@@ -1205,16 +1192,14 @@ if($groupbysearch=="no" && $dataset=="Amazon")
 		$total_pglimit = ceil(($resultNum-1)/10);
 		$limit = ($right > $total_pglimit)?$total_pglimit:$right;
 
+
+		echo '<div style="text-align:center">';
+		echo '<div class="btn-group" role="group">';
 		for ($i = $left; $i < $limit; $i++)
 		{
 			if ( $i == $page )
 			{
-
-				echo $i + 1; // Current page number
-				if (($i+1)%30==0)
-				{
-
-				}
+				echo '<button type="button" style="text-align:center" class="btn btn-default disabled">'.($i+1).'</button>'; // Current page number
 			}
 			else
 			{
@@ -1222,72 +1207,34 @@ if($groupbysearch=="no" && $dataset=="Amazon")
 
 				<a href="javascript:nextPage(<?php echo "$i"; ?>)">
 					<?php
-						echo $i + 1; // Page numbers that aren't the current number
+						echo '<button type="button" style="text-align:center" class="btn btn-default">'.($i+1).'</button>';
 					?>
 				</a>
 		  <?php
 			}
-			if (($i+1)%30==0)
-			{
-
-			}
   	}
-		echo "</div><br>";
+		echo "</div></div>";
+		echo "<br>";
 }
 ?>
-<table class="ft t bb bt" cellSpacing="0" cellPadding="0" width="100%" border="0">
-  <tbody>
-  <tr>
-    <td>
-      <table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <form method="post" action="getfeedback.php" target="_self">
-        <tr>
-          <td width="25%"><div align="left">
-            <p>Bug Report &amp; Comments</p>
-          </div></td>
-          <td>Please report bugs to help us make it better. We are happy to hear your comments</td>
-        </tr>
-        <tr> </tr>
-        <tr>
-          <td><div align="left">The keywords you had used for searching:</div></td>
-          <td><input name="keyword_used" type="text" id="keyword_used" value="<?php echo $_GET['keyword']; ?>" size="90" /></td>
-        </tr>
-        <tr>
-          <td><div align="left">The data set you had used to search: </div></td>
-          <td><input name="dataset_used" type="text" id="dataset_used" value="<?php echo $_GET['dataset']; ?>" size="90" /></td>
-        </tr>
-        <tr>
-          <td><div align="left">The Snippet size you had selected:</div></td>
-          <td><input name="snippet_size" type="text" id="snippet_size" value="<?php echo $_GET['size']; ?>" size="90" /></td>
-        </tr>
-        <tr>
-	          <td><div align="left">The Number of results you had selected:</div></td>
-	          <td><input name="nresults" type="text" id="snippet_size" value="<?php echo $_GET['nresults']; ?>" size="90" /></td>
-        </tr>
-        <tr>
-		          <td><div align="left">The group by attribute selected:</div></td>
-		          <td><input name="groupby" type="text" id="snippet_size" value="<?php echo $_GET['groupby']; ?>" size="90" /></td>
-        </tr>
+      <form style="background-color:#98AFC7;text-align:center" class="form-inline" method="post" action="getfeedback.php" target="_self">
+          <h2 style="padding-top:20px">Bug Reports &amp; Comments</h2>
+          <p style="margin-bottom:20px">Please report any bugs that you encounter to help us make XSeek better. We are happy to hear your feedback and comments!</p>
 
-        <tr>
-          <td><div align="left">The bugs you had encountered:</div></td>
-          <td><label>
-            <textarea name="bugs" id="bugs" cols="69" rows="3"></textarea>
-          </label></td>
-        </tr>
-        <tr>
-          <td><div align="left">Comments:</div></td>
-          <td><label>
-            <textarea name="comments" id="comments" cols="69" rows="3"></textarea>
-            <input class="btn btn-default" type="submit" name="button2" id="button2" value="Submit" />
-          </label></td>
-        </tr>
+          <div style="margin-bottom:20px">The keywords that you used for searching:</div>
+          <input style="margin-bottom:20px" disabled class="form-control" name="keyword_used" type="text" id="keyword_used" value="<?php echo $_GET['keyword']; ?>" size="90" />
+          <div style="margin-bottom:20px">The data set that you searched on: </div>
+          <input style="margin-bottom:20px" disabled class="form-control" name="dataset_used" type="text" id="dataset_used" value="<?php echo $_GET['dataset']; ?>" size="90" />
+          <div style="margin-bottom:20px">The snippet size that you selected:</div>
+          <input style="margin-bottom:20px" disabled class="form-control" name="snippet_size" type="text" id="snippet_size" value="<?php echo $_GET['size']; ?>" size="90" />
+	        <div style="margin-bottom:20px">The number of results that you selected:</div>
+	        <input style="margin-bottom:20px" disabled class="form-control" name="nresults" type="text" id="snippet_size" value="<?php echo $_GET['nresults']; ?>" size="90" />
+          <div style="margin-bottom:20px">The bugs that you encountered:</div>
+          <textarea style="resize:none;margin-bottom:20px" class="form-control" name="bugs" id="bugs"></textarea>
+          <div style="margin-bottom:20px">Comments:</div>
+          <textarea style="resize:none;margin-bottom:20px" class="form-control" name="comments" id="comments"></textarea>
+					<br>
+          <input style="margin-bottom:20px" class="btn btn-success" type="submit" name="button2" id="button2" value="Submit" />
         </form>
-      </table>
-
-   </td>
- </tr>
-  </tbody>
-</table>
 </body>
 </html>
