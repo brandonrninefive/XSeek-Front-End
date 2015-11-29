@@ -112,7 +112,7 @@ if (isset($_GET['swap']))
   <meta http-equiv="content-type" content="text/html; charset=windows-1250">
   <meta name="generator" content="PSPad editor, www.pspad.com">
   <title><?php $pageTitle ?></title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="searchcss.css" type="text/css" />
 	<script type="text/javascript">
 
@@ -872,10 +872,11 @@ if (isset($_GET['swap']))
 			}
 		?>
 		<br>
-		Example queries: <span id="queries"><a href="#" onclick="search_query('XML Search Author'); return false;">XML Search Author</a>, <a href="#" onclick="search_query('Sigmod Conference'); return false;">Sigmod Conference</a></span>
+		<p style="margin-left:180px;margin-top:-10px;margin-bottom:-20px;">Example queries: <span id="queries"><a href="#" onclick="search_query('XML Search Author'); return false;">XML Search Author</a>, <a href="#" onclick="search_query('Sigmod Conference'); return false;">Sigmod Conference</a></span></p>
     <input type="hidden" name="page" id="page" value="0"/>
 	  <br>
   </form>
+	<p style="padding-top:20px;border-top:1px solid blue;border-bottom:1px solid blue;background-color:#D5DDF3;text-align:center">
   Results <?php 	$file_handle = fopen("sr/resultnum".$timestamp.".txt", "r");
 	global $num;
 	$num = fgets($file_handle);
@@ -902,21 +903,14 @@ if (isset($_GET['swap']))
 	on data set "<b>
 	<?php echo $dataset;?>
 	</b>". ( <b><?php include("total_time.txt")?></b> seconds)
-</font>
-</td>
-<td align="right" nowrap><font size="-1">
-<span id=sd>&nbsp;&nbsp;<!--<a href="javascript:viewShoppingCart()">Current selection<!-- shopping cart image taken from http://www.fg-a.com/shoppingcart.shtml please vist their site --><!--<img src="cart.gif" width="30"/></a>&nbsp;&nbsp;</span>-->
-</font>
-</td>
-</tr>
-</table>
-
-
+	<br>
+	<input style="margin-top:20px;margin-bottom:20px;margin-left:20px" class="btn btn-default" name="Compare" value="Compare Results" type="submit" onClick="viewDiff();" />
+	</p>
 <?php
 if ($num == 0)
 {
 ?>
-<p>Oops! No query result from XSeek. <p> Make sure you have chosen the correct <B>dataset</B>, and type in the <B>correct</B> keyword.<br/> <br/>
+<p style="text-align:center;color:red">Oops! XSeek found no results for your query. </p> <p style="text-align:center;color:red">Make sure you have chosen the correct <b>dataset</b>, and typed in the correct <b>keywords</b>.</p><br>
 <?php
 }
 else
@@ -937,8 +931,6 @@ else
 ?>
 
 <div class="g">
-
-<input class="btn btn-default" name="Compare" value="Compare" type="submit" onClick="viewDiff();" />
 <?php
 $dfsize;
 
@@ -1034,7 +1026,7 @@ for ($i = 1; $i < $size+1; $i++)
 		$fulltitle=trim($fulltitle);
 	?>
 	<b><font color="blue" size="-1"><a href="<?php echo "javascript:toggleRootNode('$cur')"?>" title="<?php echo $fulltitle;?>">
-	<?php echo $fulltitle;
+	<?php echo "[Placeholder]<br>".$fulltitle;
 	echo '<br><svg width="200" height="200" id="node'.$cur.'">';
 	echo '<circle cx="100" cy="100" r="80" stroke="black" stroke-width="4" fill="white" />';
 	echo '<line x1="100" y1="80" x2="100" y2="120" style="stroke:black;stroke-width:2" />';
@@ -1045,14 +1037,14 @@ for ($i = 1; $i < $size+1; $i++)
 
 	<?php
 
-	 echo '<div id="childDiv'.$cur.'" style="display:none;min-height:20px;max-height:100%">';
+	 echo '<div id="childDiv'.$cur.'" style="display:none">';
 	 echo '<p id="loadingText" style="text-align:center;">';
 	 echo 'Loading Child Nodes...';
 	 echo '</p>';
-   echo '<iframe id="childFrame" style="display:none;width:100%;height:100%;" frameborder="0">';
+   echo '<iframe id="childFrame" style="display:none;width:100%;height:100%" frameborder="0">';
 	 echo '</iframe>';
 	 echo '</div>';
-	 echo '<hr>';
+	 echo '<hr style="border-color:blue">';
 
 	 echo "<script type='text/javascript'>generateNode($cur, 'root', '$fulltitle')</script>";
 
@@ -1197,30 +1189,18 @@ if($groupbysearch=="no" && $dataset=="Amazon")
 		echo '<div class="btn-group" role="group">';
 		for ($i = $left; $i < $limit; $i++)
 		{
-			if ( $i == $page )
-			{
-				echo '<button type="button" style="text-align:center" class="btn btn-default disabled">'.($i+1).'</button>'; // Current page number
-			}
+			if($i == $page)
+				echo '<button type="button" style="text-align:center" class="btn btn-default disabled">'.($i+1).'</button>';
 			else
-			{
-				?>
-
-				<a href="javascript:nextPage(<?php echo "$i"; ?>)">
-					<?php
-						echo '<button type="button" style="text-align:center" class="btn btn-default">'.($i+1).'</button>';
-					?>
-				</a>
-		  <?php
-			}
+				echo '<button type="button" style="text-align:center" onclick="nextPage('.$i.')" class="btn btn-default">'.($i+1).'</button>';
   	}
 		echo "</div></div>";
 		echo "<br>";
 }
 ?>
-      <form style="background-color:#98AFC7;text-align:center" class="form-inline" method="post" action="getfeedback.php" target="_self">
+      <form style="border-top:1px solid blue;border-bottom:1px solid blue;background-color:#D5DDF3;text-align:center" class="form-inline" method="post" action="getfeedback.php" target="_self">
           <h2 style="padding-top:20px">Bug Reports &amp; Comments</h2>
-          <p style="margin-bottom:20px">Please report any bugs that you encounter to help us make XSeek better. We are happy to hear your feedback and comments!</p>
-
+          <p style="margin-bottom:40px">Please report any bugs that you encounter to help us make XSeek better. We are happy to hear your feedback and comments!</p>
           <div style="margin-bottom:20px">The keywords that you used for searching:</div>
           <input style="margin-bottom:20px" disabled class="form-control" name="keyword_used" type="text" id="keyword_used" value="<?php echo $_GET['keyword']; ?>" size="90" />
           <div style="margin-bottom:20px">The data set that you searched on: </div>
@@ -1230,9 +1210,9 @@ if($groupbysearch=="no" && $dataset=="Amazon")
 	        <div style="margin-bottom:20px">The number of results that you selected:</div>
 	        <input style="margin-bottom:20px" disabled class="form-control" name="nresults" type="text" id="snippet_size" value="<?php echo $_GET['nresults']; ?>" size="90" />
           <div style="margin-bottom:20px">The bugs that you encountered:</div>
-          <textarea style="resize:none;margin-bottom:20px" class="form-control" name="bugs" id="bugs"></textarea>
+          <textarea style="resize:none;margin-bottom:20px;width:700px;height:160px" class="form-control" name="bugs" id="bugs"></textarea>
           <div style="margin-bottom:20px">Comments:</div>
-          <textarea style="resize:none;margin-bottom:20px" class="form-control" name="comments" id="comments"></textarea>
+          <textarea style="resize:none;margin-bottom:20px;width:700px;height:160px" class="form-control" name="comments" id="comments"></textarea>
 					<br>
           <input style="margin-bottom:20px" class="btn btn-success" type="submit" name="button2" id="button2" value="Submit" />
         </form>

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=1450, initial-scale=1">
 	<base target="_blank">
 	<title>XSeek</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="homecss.css" type="text/css">
 	<script type="text/javascript" src="searchscript.js"></script>
 </head>
@@ -59,7 +59,6 @@
 			</select>
 		</p>
 		<p id="examples">
-			<!--<input type="radio" name="swap" value="1">Single-Swap</input><input type="radio" name="swap" value="2" checked>Multi-Swap</input>-->
 			Example queries:
 			<span id="queries"><a href="#" onclick="search_query('XML Search Author'); return false;">XML Search Author</a>, <a href="#" onclick="search_query('Sigmod Conference'); return false;">Sigmod Conference</a></span>
 			<input type="hidden" name="page" id="page" value="0">
@@ -67,14 +66,7 @@
 	</form>
 	</div>
 	<p id="about">
-		<a href="http://chenwsdb.fulton.ad.asu.edu/xseek/home.htm">About XSeek</a>
-	</p>
-	<!--<div style="display:inline" title="header=[] body=[body]">test</div><span title="header=[] body=[body]">test</span>-->
-	<p id="copyright">
-		Copyright &copy; 2008 WSDB@Arizona State University.
-	</p>
-	<p id="contact">
-		Contact: <a href="mailto:ziyang.liu@asu.edu">ziyang.liu@asu.edu</a>, <a href="mailto:siva.n@asu.edu">siva.n@asu.edu</a>
+		<a href="https://web.njit.edu/~ychen/xseek.htm">About XSeek</a>
 	</p>
 </body>
 

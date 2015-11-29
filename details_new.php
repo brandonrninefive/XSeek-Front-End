@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=1450, initial-scale=1">
  	  <meta http-equiv="content-type" content="text/html; charset=windows-1250">
   	<meta name="generator" content="PSPad editor, www.pspad.com">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="detailscss.css" type="text/css">
   	<title>Generating Results...</title>
   </head>
