@@ -39,9 +39,7 @@
     $currentResultIndex = 0;
     $resultsArray[currentResultIndex] = array(); //Each result has an associative array of attribute types and data
 
-    $nodeTitleAttributes = array("title","confname","name"); //The attributes that determine the titles of nodes (change depending on the database)
-
-    //array_push($nodeTitleAttributes,"title");
+    $nodeTitleAttributes = array("article"=>"title","inproceedings"=>"title","author"=>"name","phdthesis"=>"title"); //Dictionary of the attributes that determine the title of different types of nodes (change depending on the database)
 
     $totalResults = 0;
 
@@ -78,9 +76,9 @@
 
       echo '<div style="display:inline-block">';
       echo '<a href="#">';
-      echo '<svg width="100" height="200">';
-      echo '<circle cx="50" cy="100" r="40" stroke="black" stroke-width="4" fill="white" />';
-      echo '<polygon points="55,120,55,80,35,100" stroke="black" stroke-width="4" fill="black"/>';
+      echo '<svg width="120" height="120">';
+      echo '<circle cx="60" cy="60" r="30" stroke="black" stroke-width="4" fill="white" />';
+      echo '<polygon points="65,80,65,40,45,60" stroke="black" stroke-width="4" fill="black"/>';
       echo '</svg>';
       echo '</a>';
       echo '</div>';
@@ -89,23 +87,10 @@
       echo '<a href="#">';
       echo '<p style="width:200px">';
       echo '</p>';
-      echo '<svg width="200" height="200">';
-      echo '<circle cx="100" cy="100" r="80" stroke="black" stroke-width="4" fill="white" />';
-      echo '<line x1="100" y1="80" x2="100" y2="120" style="stroke:black;stroke-width:2" />';
-      echo '<line x1="80" y1="100" x2="120" y2="100" style="stroke:black;stroke-width:2" />';
-      echo '</svg>';
-      echo '</a>';
-      echo '<br>';
-      echo '</div>';
-
-      echo '<div style="text-align:center;display:inline-block;margin-left:50px;margin-right:50px;">';
-      echo '<a href="#">';
-      echo '<p style="width:200px">';
-      echo '</p>';
-      echo '<svg width="200" height="200">';
-      echo '<circle cx="100" cy="100" r="80" stroke="black" stroke-width="4" fill="white" />';
-      echo '<line x1="100" y1="80" x2="100" y2="120" style="stroke:black;stroke-width:2" />';
-      echo '<line x1="80" y1="100" x2="120" y2="100" style="stroke:black;stroke-width:2" />';
+      echo '<svg width="120" height="120">';
+      echo '<circle cx="60" cy="60" r="50" stroke="black" stroke-width="4" fill="white" />';
+      echo '<line x1="60" y1="40" x2="60" y2="80" style="stroke:black;stroke-width:2" />';
+      echo '<line x1="40" y1="60" x2="80" y2="60" style="stroke:black;stroke-width:2" />';
       echo '</svg>';
       echo '</a>';
       echo '<br>';
@@ -115,10 +100,23 @@
       echo '<a href="#">';
       echo '<p style="width:200px">';
       echo '</p>';
-      echo '<svg width="200" height="200">';
-      echo '<circle cx="100" cy="100" r="80" stroke="black" stroke-width="4" fill="white" />';
-      echo '<line x1="100" y1="80" x2="100" y2="120" style="stroke:black;stroke-width:2" />';
-      echo '<line x1="80" y1="100" x2="120" y2="100" style="stroke:black;stroke-width:2" />';
+      echo '<svg width="120" height="120">';
+      echo '<circle cx="60" cy="60" r="50" stroke="black" stroke-width="4" fill="white" />';
+      echo '<line x1="60" y1="40" x2="60" y2="80" style="stroke:black;stroke-width:2" />';
+      echo '<line x1="40" y1="60" x2="80" y2="60" style="stroke:black;stroke-width:2" />';
+      echo '</svg>';
+      echo '</a>';
+      echo '<br>';
+      echo '</div>';
+
+      echo '<div style="text-align:center;display:inline-block;margin-left:50px;margin-right:50px;">';
+      echo '<a href="#">';
+      echo '<p style="width:200px">';
+      echo '</p>';
+      echo '<svg width="120" height="120">';
+      echo '<circle cx="60" cy="60" r="50" stroke="black" stroke-width="4" fill="white" />';
+      echo '<line x1="60" y1="40" x2="60" y2="80" style="stroke:black;stroke-width:2" />';
+      echo '<line x1="40" y1="60" x2="80" y2="60" style="stroke:black;stroke-width:2" />';
       echo '</svg>';
       echo '</a>';
       echo '<br>';
@@ -126,9 +124,9 @@
 
       echo '<div style="display:inline-block">';
       echo '<a href="#">';
-      echo '<svg width="100" height="200">';
-      echo '<circle cx="50" cy="100" r="40" stroke="black" stroke-width="4" fill="white" />';
-      echo '<polygon points="45,120,45,80,65,100" stroke="black" stroke-width="4" fill="black"/>';
+      echo '<svg width="120" height="120">';
+      echo '<circle cx="60" cy="60" r="30" stroke="black" stroke-width="4" fill="white" />';
+      echo '<polygon points="55,80,55,40,75,60" stroke="black" stroke-width="4" fill="black"/>';
       echo '</svg>';
       echo '</a>';
       echo '</div>';
@@ -143,7 +141,7 @@
 
           foreach(array_keys($resultsArray[$i]) as $key)
           {
-            if(in_array($key, $nodeTitleAttributes))
+            if($nodeTitleAttributes[$resultsArray[$i]["ResultType"]] == $key)
               array_push($nodeTitlesToEcho, $resultsArray[$i][$key]);
           }
 
@@ -154,12 +152,17 @@
 
           echo "\\".ucfirst($resultsArray[$i]["ResultType"])."\\";
 
+          $resultNumber = 0;
+
           foreach(array_keys($resultsArray[$i]) as $key)
           {
             if(!in_array($key, $nodeTitleAttributes) && $key != "ResultType")
+            {
               echo ucfirst($key).": ".$resultsArray[$i][$key]."<br><br>";
+              $resultNumber++;
+            }
           }
-
+          echo "\\".$resultNumber;
           echo '</span>';
       }
 

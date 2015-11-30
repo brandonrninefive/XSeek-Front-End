@@ -217,6 +217,19 @@ if (isset($_GET['swap']))
 
 					this.childIndex-=3;
 
+					if(this.children[this.childIndex] == null)
+						this.leftNode.style.visibility = "hidden";
+					else
+						this.leftNode.style.visibility = "visible";
+					if(this.children[this.childIndex + 1] == null)
+						this.middleNode.style.visibility = "hidden";
+					else
+						this.middleNode.style.visibility = "visible";
+					if(this.children[this.childIndex + 2] == null)
+						this.rightNode.style.visibility = "hidden";
+					else
+						this.rightNode.style.visibility = "visible";
+
 					if(this.children[this.childIndex] != null)
 					{
 							this.leftNode.getElementsByTagName("P")[0].innerHTML = "[ " + this.children[this.childIndex].type + " ]<br>" +this.children[this.childIndex].title;
@@ -256,6 +269,19 @@ if (isset($_GET['swap']))
 
 					this.childIndex+=3;
 
+					if(this.children[this.childIndex] == null)
+						this.leftNode.style.visibility = "hidden";
+					else
+						this.leftNode.style.visibility = "visible";
+					if(this.children[this.childIndex + 1] == null)
+						this.middleNode.style.visibility = "hidden";
+					else
+						this.middleNode.style.visibility = "visible";
+					if(this.children[this.childIndex + 2] == null)
+						this.rightNode.style.visibility = "hidden";
+					else
+						this.rightNode.style.visibility = "visible";
+
 					if(this.children[this.childIndex] != null)
 					{
 							this.leftNode.getElementsByTagName("P")[0].innerHTML = "[ " + this.children[this.childIndex].type + " ]<br>" +this.children[this.childIndex].title;
@@ -286,8 +312,8 @@ if (isset($_GET['swap']))
 		{
 			 if(this.isRoot)
 			 {
-			 	 document.getElementById("node" + id).innerHTML = "<circle cx='100' cy='100' r='80' stroke='black' stroke-width='4' fill='white' /><line x1='80' y1='100' x2='120' y2='100' style='stroke:black;stroke-width:2' />";
-				this.childDiv.style.display = "block";
+			 	 document.getElementById("node" + id).innerHTML = "<circle cx='60' cy='60' r='50' stroke='black' stroke-width='4' fill='white' /><line x1='40' y1='60' x2='80' y2='60' style='stroke:black;stroke-width:2' />";
+				 this.childDiv.style.display = "block";
 			 }
 			 else
 			 {
@@ -304,7 +330,7 @@ if (isset($_GET['swap']))
 						innerHTML += (splitDesc[i] + "<br><br>");
 				 innerHTML += "</p>";
 				 this.childDiv.innerHTML = innerHTML;
-			 	 this.nodeSVG.innerHTML = "<circle cx='100' cy='100' r='80' stroke='black' stroke-width='4' fill='white' /><line x1='80' y1='100' x2='120' y2='100' style='stroke:black;stroke-width:2' />";
+			 	 this.nodeSVG.innerHTML = "<circle cx='60' cy='60' r='50' stroke='black' stroke-width='4' fill='white' /><line x1='40' y1='60' x2='80' y2='60' style='stroke:black;stroke-width:2' />";
 				 this.childDiv.style.display = "inline-block";
 			 }
 			 this.expanded = true;
@@ -331,7 +357,10 @@ if (isset($_GET['swap']))
 										var type = val.substring(typeIndex + 1);
 										var descriptionIndex = type.indexOf("\\");
 										var description = type.substring(descriptionIndex + 1);
+										var countIndex = description.indexOf("\\");
+										var count = description.substring(countIndex + 1);
 										type = type.substring(0, descriptionIndex);
+										description = description.substring(0, countIndex);
 										childNode = generateChildNode(obj, i, type, title);
 										childNode.description = description;
 								}
@@ -394,9 +423,9 @@ if (isset($_GET['swap']))
 		this.collapse = function()
 		{
 			 if(this.isRoot)
-		   		document.getElementById("node" + id).innerHTML = "<circle cx='100' cy='100' r='80' stroke='black' stroke-width='4' fill='white' /><line x1='100' y1='80' x2='100' y2='120' style='stroke:black;stroke-width:2' /><line x1='80' y1='100' x2='120' y2='100' style='stroke:black;stroke-width:2' />";
+		   		document.getElementById("node" + id).innerHTML = "<circle cx='60' cy='60' r='50' stroke='black' stroke-width='4' fill='white' /><line x1='60' y1='40' x2='60' y2='80' style='stroke:black;stroke-width:2' /><line x1='40' y1='60' x2='80' y2='60' style='stroke:black;stroke-width:2' />";
 			 else
-			 		this.nodeSVG.innerHTML = "<circle cx='100' cy='100' r='80' stroke='black' stroke-width='4' fill='white' /><line x1='100' y1='80' x2='100' y2='120' style='stroke:black;stroke-width:2' /><line x1='80' y1='100' x2='120' y2='100' style='stroke:black;stroke-width:2' />";
+			 		this.nodeSVG.innerHTML = "<circle cx='60' cy='60' r='50' stroke='black' stroke-width='4' fill='white' /><line x1='60' y1='40' x2='60' y2='80' style='stroke:black;stroke-width:2' /><line x1='40' y1='60' x2='80' y2='60' style='stroke:black;stroke-width:2' />";
 			 this.childDiv.style.display = "none";
 			 this.expanded = false;
 		};
@@ -1027,10 +1056,10 @@ for ($i = 1; $i < $size+1; $i++)
 	?>
 	<b><font color="blue" size="-1"><a href="<?php echo "javascript:toggleRootNode('$cur')"?>" title="<?php echo $fulltitle;?>">
 	<?php echo "[Placeholder]<br>".$fulltitle;
-	echo '<br><svg width="200" height="200" id="node'.$cur.'">';
-	echo '<circle cx="100" cy="100" r="80" stroke="black" stroke-width="4" fill="white" />';
-	echo '<line x1="100" y1="80" x2="100" y2="120" style="stroke:black;stroke-width:2" />';
-	echo '<line x1="80" y1="100" x2="120" y2="100" style="stroke:black;stroke-width:2" />';
+	echo '<br><svg width="120" height="120" id="node'.$cur.'">';
+	echo '<circle cx="60" cy="60" r="50" stroke="black" stroke-width="4" fill="white" />';
+	echo '<line x1="60" y1="40" x2="60" y2="80" style="stroke:black;stroke-width:2" />';
+	echo '<line x1="40" y1="60" x2="80" y2="60" style="stroke:black;stroke-width:2" />';
 	echo '</svg>';
 	?>
 	</a></font></b>
