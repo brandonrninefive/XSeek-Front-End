@@ -2,7 +2,7 @@ XSeek Front-End
 ========================
 The front-end for XSeek, an XML-based search engine being developed at NJIT
 
-<b>Note:</b> You cannot view this website properly without having the XSeek program installed properly on your computer first. Screenshots will soon be posted below to show comoparisons between the current front-end and the old front-end, which is currently running at the demo URL below.
+<b>Note:</b> You cannot view this website properly without having the XSeek program installed properly on your computer first. Screenshots will soon be posted below to show comparisons between the current front-end and the old front-end, which is currently running at the demo URL below.
 
 URL to Demo: http://xseek.njit.edu/
 
