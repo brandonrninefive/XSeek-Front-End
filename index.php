@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=1450, initial-scale=1">
@@ -9,6 +8,9 @@
 	<link rel="stylesheet" href="bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="homecss.css" type="text/css">
 	<script type="text/javascript" src="searchscript.js"></script>
+	<?php
+		$dataset = "DBLP"; //The dataset to search on. Changing this value will change the dataset for the rest of the website.
+	?>
 </head>
 
 <body style="min-width:1450px">
@@ -18,17 +20,22 @@
 	</a>
 	</div>
 	<div id="formdiv">
-	<form class="form-inline" role="form" action="search.php" name="f" method="get" target="_self">
+	<form class="form-inline" action="search.php" name="f" method="get" target="_self">
 		<p>
-			<input style="width:600px" class="form-control" placeholder="XML Search Author, Sigmod Conference, etc." maxlength=2048 name=keyword title="Search" id="keyword" />
+			<input required style="width:600px" class="form-control" placeholder="XML Search Author, Sigmod Conference, etc." maxlength=2048 name=keywords title="Search" id="keywords" />
 			<input class="btn btn-default" type="submit" name="search" value="Search" />
 			<label>Number of results:</label>
 			<input style="width:60px" class="form-control" name="nresults" id="nresults" value="20" />
 			<input type="hidden" name="btnG" value="no" />
+			<?php
+			echo '<input type="hidden" name="dataset" value="'.$dataset.'">';
+			?>
 			<br>
-			<label class="labels">DataSet:</label>
-			<label id="dataset">DBLP</label>
-			<a href="#" onclick="viewxml();" id="view">Download Data</a>
+			<label style="margin-top:20px" class="labels">DataSet:</label>
+			<label id="dataset"><?php echo "$dataset"; ?></label>
+			<?php
+			echo '(<a href="#" onclick="viewxml(\''.$dataset.'\');" id="view">Sample Data</a>)';
+			?>
 			<label class="labels">&nbsp;Snippet Size&nbsp;</label>
 			<select style="width:80px" class="form-control" name="size" id="size">
 				<option>5</option>

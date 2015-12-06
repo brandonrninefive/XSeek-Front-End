@@ -9,40 +9,31 @@ $orderbysearch="no";
 $clustersearch="no";
 $clusterid = "no";
 $pageTitle = "XSeek";
-$queryword;
+$queryword = "";
 
-if (isset($_GET['keyword']))
+if (isset($_GET['keywords']))
 {
-	$queryword = $_GET['keyword'];
+	$queryword = $_GET['keywords'];
 	$pageTitle = $queryword + "- XSeek";
 }
 
-$dataset = $_GET['dataset'];
-$dataset = "dblp";
+if(isset($_GET['dataset']))
+	$dataset = $_GET['dataset'];
 
 if(isset($_GET['groupby']) && $_GET['groupby']!="")
-{
 	$groupbysearch ="yes";
-}
 
 if(isset($_GET['orderby']) && $_GET['orderby']!="")
-{
 	$orderbysearch ="yes";
-}
 
 if (!isset($_GET['nresults']))
 	$_SESSION['nresults'] = "10";
 
 if (isset($_GET['cluster']) && $_GET['cluster']!="")
-{
  	$clustersearch="yes";
- 	//echo $clustersearch;
-}
 
  if (isset($_GET['clusterid']) && $_GET['clusterid']!="")
-{
   $clusterid = $_GET['clusterid'];
-}
 
 $timer = time();
 
@@ -56,9 +47,9 @@ if (isset($_GET['btnG']) && !isset($_GET['orderby']))
 	$timestamp = substr($timestamp,round(strlen($timestamp)/2));
 	$timestamp = ltrim($timestamp, '0'); // Sometimes a timestamp starts with 0? This should prevent that.
 	$_SESSION['timestamp'] = $timestamp;
-	if (isset($_GET['keyword'])) $_SESSION['oldkeyword'] = $_GET['keyword'];
+	if (isset($_GET['keywords'])) $_SESSION['oldkeywords'] = $_GET['keywords'];
 	else
-		$_SESSION['oldkeyword'] = '1';
+		$_SESSION['oldkeywords'] = '1';
 	if (isset($_GET['dataset']))
 		$_SESSION['olddataset'] = $_GET['dataset'];
 	else
@@ -93,7 +84,7 @@ if (isset($_GET['page']))
 	$page = $_GET['page'];
 }
 
-if ($_GET['dataset'] == "dblp")
+if ($dataset == "DBLP")
 {
 	set_time_limit(120);
 }
@@ -134,13 +125,13 @@ if (isset($_GET['swap']))
 
 	function loadClustersSection(str)
 	{
-		var te = "search.php?dataset=<?php echo $dataset;?>&size=<?php echo $_GET['size'];?>&keyword=<?php echo urlencode(trim($_GET['keyword']));?>&btnG=<?php echo $_GET['btnG'];?>&orderby=<?php echo $_GET['orderby'];?>&timestamp=<?php echo $timestamp;?>&swap=<?php echo $swapType;?>&clusterid=" + str + "";
+		var te = "search.php?dataset=<?php echo $dataset;?>&size=<?php echo $_GET['size'];?>&keywords=<?php echo urlencode(trim($_GET['keywords']));?>&nresults=<?php echo $_GET['nresults'];?>&btnG=<?php echo $_GET['btnG'];?>&orderby=<?php echo $_GET['orderby'];?>&timestamp=<?php echo $timestamp;?>&swap=<?php echo $swapType;?>&clusterid=" + str + "";
 		var loadDetails = window.open(te,"","status=1,scrollbars=1,width=650,height=450,resizable=1");
 	}
 
 	function loadDetailsSection(str,title)
 	{
-		var te = "details_new.php?dataset=<?php echo $_GET['dataset'];?>&title="+title+"&clusterid=<?php echo $_GET['clusterid'];?>&orderby=<?php echo $_GET['orderby'];?>&timestamp=<?php echo $timestamp;?>&swap=<?php echo $swapType;?>&num=" + str + "";
+		var te = "details_new.php?dataset=<?php echo $dataset;?>&title="+title+"&clusterid=<?php echo $_GET['clusterid'];?>&orderby=<?php echo $_GET['orderby'];?>&timestamp=<?php echo $timestamp;?>&swap=<?php echo $swapType;?>&num=" + str + "";
 		var loadDetails = window.open(te,"","status=1,scrollbars=1,width=650,height=450,resizable=1");
 		return loadDetails;
 	}
@@ -339,7 +330,7 @@ if (isset($_GET['swap']))
 				 this.hasBeenExpanded = true;
 				 if(this.isRoot)
 				 {
-					 var te = "details_new.php?dataset=<?php echo $_GET['dataset'];?>&title="+title+"&id=<?php echo $_GET['clusterid'];?>&orderby=<?php echo $_GET['orderby'];?>&timestamp=<?php echo $timestamp;?>&swap=<?php echo $swapType;?>&num=" + id + "";
+					 var te = "details_new.php?dataset=<?php echo $dataset;?>&title="+title+"&id=<?php echo $_GET['clusterid'];?>&orderby=<?php echo $_GET['orderby'];?>&timestamp=<?php echo $timestamp;?>&swap=<?php echo $swapType;?>&num=" + id + "";
 					 var obj = this;
 					 this.childFrame.onload = function()
 					 {
@@ -439,12 +430,20 @@ if (isset($_GET['swap']))
 
 	function search_query(query)
 	{
-		document.getElementById('keyword').value = query;
+		document.getElementById('keywords').value = query;
 		document.forms[0].submit();
 	}
 
 	var checkOut = Array();
 	var titleOut = Array();
+
+	function checkCheckboxes()
+	{
+		if(checkOut.length > 1)
+			document.getElementById("Compare").disabled = false;
+		else
+			document.getElementById("Compare").disabled = true;
+	}
 
 	function updateChecked(checkno,title)
 	{
@@ -462,6 +461,8 @@ if (isset($_GET['swap']))
 		{
 			checkOut.push(checkno);
 		}
+
+		checkCheckboxes();
 
 		contains = false;
 
@@ -557,14 +558,14 @@ if (isset($_GET['swap']))
 
 	function nextPage(pageNo)
 	{
-		var out = "search.php?page=" + pageNo + "&keyword=<?php echo urlencode(trim($_GET['keyword']));?>&cluster=<?php echo urlencode(trim($_GET['cluster']));?>&clusterid=<?php echo urlencode(trim($_GET['clusterid']));?>&swap=<?php echo $swapType;?>&dataset=<?php echo urlencode(trim($_GET['dataset']));?>&timestamp=<?php echo $timestamp;?>&size=<?php echo urlencode(trim($_GET['size']));?>" + outputChecked();
+		var out = "search.php?page=" + pageNo + "&keywords=<?php echo urlencode(trim($_GET['keywords']));?>&nresults=<?php echo $_GET['nresults'];?>&cluster=<?php echo urlencode(trim($_GET['cluster']));?>&clusterid=<?php echo urlencode(trim($_GET['clusterid']));?>&swap=<?php echo $swapType;?>&dataset=<?php echo urlencode(trim($dataset));?>&timestamp=<?php echo $timestamp;?>&size=<?php echo urlencode(trim($_GET['size']));?>" + outputChecked();
 
 		window.location = out;
 	}
 
 	function viewDiff()
 	{
-		var out = "differentiate_new.php?dataset=<?php echo urlencode(trim($_GET['dataset']));?>&cluster=<?php echo urlencode(trim($_GET['cluster']));?>&clusterid=<?php echo urlencode(trim($_GET['clusterid']));?>&timestamp=<?php echo $timestamp;?>&page=<?php echo $page;?>&groupby=<?php echo $_GET['groupby'];?>&swap=<?php echo $swapType;?>&dfsSize=" + document.getElementById("dfsSize").value + "<?php /*echo urlencode(trim($_GET['size']))*/?>" + outputChecked();
+		var out = "differentiate_new.php?dataset=<?php echo urlencode(trim($dataset));?>&cluster=<?php echo urlencode(trim($_GET['cluster']));?>&clusterid=<?php echo urlencode(trim($_GET['clusterid']));?>&timestamp=<?php echo $timestamp;?>&page=<?php echo $page;?>&groupby=<?php echo $_GET['groupby'];?>&swap=<?php echo $swapType;?>&dfsSize=" + document.getElementById("dfsSize").value + "<?php /*echo urlencode(trim($_GET['size']))*/?>" + outputChecked();
 		var loadSC = window.open(out,"","status=1,scrollbars=1,width=550,height=500,resizable=1");
 	}
 	// calls below
@@ -593,6 +594,8 @@ if (isset($_GET['swap']))
 				}
 		}
 
+		checkCheckboxes();
+
 		return vars;
 	}
 	// gets the URL checked items and turns them into javascript data structures
@@ -616,7 +619,7 @@ if (isset($_GET['swap']))
 	</script>
 	</head>
 
-  <body onload="javascript:document.f.keyword.focus();" style="min-width:1400px;">
+  <body onload="javascript:document.f.keywords.focus();" style="min-width:1400px;">
 
 <br>
 <?php
@@ -629,10 +632,8 @@ if (isset($_GET['swap']))
 		$inputFile = 'sr\\input_'.$timestamp.'.txt';
 
 		$f = fopen($inputFile, 'w') or die('Unable to open file.');
-		if($dataset=="Amazon")
-			fwrite($f, "amazon.xml\n");
-		else
-			fwrite($f, "dblp.xml\n");
+
+		fwrite($f, $dataset.".xml\n");
 
 		$xseekOutFile = 'sr\\diffinput_'.$timestamp.'.txt';
 
@@ -646,7 +647,7 @@ if (isset($_GET['swap']))
 		// previous LOC
 
 		$handle = fopen($xseekFile, 'w') or die('error');
-		fwrite($handle, $_GET["keyword"]);
+		fwrite($handle, $_GET["keywords"]);
 
 		if(isset($_GET['groupby']))
 		{
@@ -842,8 +843,11 @@ if (isset($_GET['swap']))
 ?>
 <form role="form" class="form-inline" action="search.php" name=f method="get" target="_self">
 	  <a href="index.php" target="_self"><img src="small-logo.png" border="0" alt="XSACT"/></a></td>
-		<input class="form-control" name="keyword" type="text" title="XSeek Search" value="<?php echo $_GET['keyword']; ?>" size="50" id="keyword" />
+		<input required class="form-control" name="keywords" placeholder="XML Search Author, Sigmod Conference, etc." title="XSeek Search" value="<?php echo $_GET['keywords']; ?>" size="50" id="keywords" />
 		<input name=btnG type="hidden" value="Search"/>
+		<?php
+		echo '<input type="hidden" name="dataset" value="'.$dataset.'">';
+		 ?>
 		<input name="cluster" id="cluster" type="hidden" value="<?php echo $_GET['cluster'];?>"/>
 		<input name="clusterid" id="clusterid" type="hidden" value="<?php echo $_GET['clusterid'];?>"/>
 
@@ -920,7 +924,7 @@ if (isset($_GET['swap']))
 	?>
 	of <b>
 	<?php
-	include("sr/resultnum".$timestamp.".txt"); ?></b> for keywords "<B><?php echo $_GET["keyword"]
+	include("sr/resultnum".$timestamp.".txt"); ?></b> for keywords "<B><?php echo $_GET["keywords"]
 	?>
 	</b>"
 	<?php
@@ -933,7 +937,7 @@ if (isset($_GET['swap']))
 	<?php echo $dataset;?>
 	</b>". ( <b><?php include("total_time.txt")?></b> seconds)
 	<br>
-	<input style="margin-top:20px;margin-bottom:20px;margin-left:20px" class="btn btn-default" name="Compare" value="Compare Results" type="submit" onClick="viewDiff();" />
+	<input id="Compare" style="margin-top:20px;margin-bottom:20px;margin-left:20px;" class="btn btn-default" name="Compare" value="Compare Results" type="submit" onClick="viewDiff();" />
 	</p>
 <?php
 if ($num == 0)
@@ -1188,11 +1192,11 @@ if($groupbysearch=="no" && $dataset=="Amazon")
 
 					if($attribute!="" && (!array_key_exists($attribute, $attributelist)))
 					{
-						$attributelist[$attribute] = '<a href="search.php?keyword='.$val.'&btnG=no&dataset=DBLP&size=10&page=0">'.$val.'</a>';
+						$attributelist[$attribute] = '<a href="search.php?keywords='.$val.'&nresults='.$_GET['nresults'].'&btnG=no&dataset='.$dataset.'&size=10&page=0">'.$val.'</a>';
 					}
 					else if($attribute!="")
 					{
-						$attributelist[$attribute].= ", ".'<a href="search.php?keyword='.$val.'&btnG=no&dataset=DBLP&size=10&page=0">'.$val.'</a>';
+						$attributelist[$attribute].= ", ".'<a href="search.php?keywords='.$val.'&nresults='.$_GET['nresults'].'&btnG=no&dataset='.$dataset.'&size=10&page=0">'.$val.'</a>';
 					}
 				}
 				}
@@ -1231,13 +1235,17 @@ if($groupbysearch=="no" && $dataset=="Amazon")
           <h2 style="padding-top:20px">Bug Reports &amp; Comments</h2>
           <p style="margin-bottom:40px">Please report any bugs that you encounter to help us make XSeek better. We are happy to hear your feedback and comments!</p>
           <div style="margin-bottom:20px">The keywords that you used for searching:</div>
-          <input style="margin-bottom:20px" disabled class="form-control" name="keyword_used" type="text" id="keyword_used" value="<?php echo $_GET['keyword']; ?>" size="90" />
+          <input style="margin-bottom:20px" disabled class="form-control" name="keywords_used_field" type="text" id="keywords_used_field" value="<?php echo $_GET['keywords']; ?>" size="90" />
+					<input type="hidden" name="keywords_used" value="<?php echo $_GET['keywords']; ?>"/>
           <div style="margin-bottom:20px">The data set that you searched on: </div>
-          <input style="margin-bottom:20px" disabled class="form-control" name="dataset_used" type="text" id="dataset_used" value="<?php echo $_GET['dataset']; ?>" size="90" />
-          <div style="margin-bottom:20px">The snippet size that you selected:</div>
-          <input style="margin-bottom:20px" disabled class="form-control" name="snippet_size" type="text" id="snippet_size" value="<?php echo $_GET['size']; ?>" size="90" />
-	        <div style="margin-bottom:20px">The number of results that you selected:</div>
-	        <input style="margin-bottom:20px" disabled class="form-control" name="nresults" type="text" id="snippet_size" value="<?php echo $_GET['nresults']; ?>" size="90" />
+          <input style="margin-bottom:20px" disabled class="form-control" name="dataset_used_field" type="text" id="dataset_used_field" value="<?php echo $dataset; ?>" size="90" />
+					<input type="hidden" name="dataset_used" value="<?php echo $dataset; ?>"/>
+          <div style="margin-bottom:20px">The snippet size that you requested:</div>
+          <input style="margin-bottom:20px" disabled class="form-control" name="snippet_size_field" type="text" id="snippet_size_field" value="<?php echo $_GET['size']; ?>" size="90" />
+					<input type="hidden" name="snippet_size" value="<?php echo $_GET['size']; ?>"/>
+	        <div style="margin-bottom:20px">The number of results that you requested:</div>
+	        <input style="margin-bottom:20px" disabled class="form-control" name="nresults_field" type="text" id="nresults_field" value="<?php echo $_GET['nresults']; ?>" size="90" />
+					<input type="hidden" name="nresults" value="<?php echo $_GET['nresults']; ?>"/>
           <div style="margin-bottom:20px">The bugs that you encountered:</div>
           <textarea style="resize:none;margin-bottom:20px;width:700px;height:160px" class="form-control" name="bugs" id="bugs"></textarea>
           <div style="margin-bottom:20px">Comments:</div>

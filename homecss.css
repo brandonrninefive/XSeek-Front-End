@@ -12,11 +12,12 @@ a
 }
 #formdiv
 {
+  margin-top:40px;
   text-align:center;
 }
 #imgdiv
 {
-  padding-top:37px;
+  margin-top:200px;
   display:block;
   text-align:center;
 }
