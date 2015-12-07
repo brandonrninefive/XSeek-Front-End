@@ -100,8 +100,6 @@ if (isset($_GET['swap']))
 <html>
   <head>
 	<meta name="viewport" content="width=1450, initial-scale=1">
-  <meta http-equiv="content-type" content="text/html; charset=windows-1250">
-  <meta name="generator" content="PSPad editor, www.pspad.com">
   <title><?php $pageTitle ?></title>
 	<link rel="stylesheet" href="bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="searchcss.css" type="text/css" />
@@ -184,6 +182,9 @@ if (isset($_GET['swap']))
 		this.parentNode = null;
 		this.children = [];
 		this.childIndex = 0;
+		this.leftLine = null;
+		this.middleLine = null;
+		this.rightLine = null;
 		this.leftArrow = null;
 		this.leftNode = null;
 		this.middleNode = null;
@@ -209,17 +210,35 @@ if (isset($_GET['swap']))
 					this.childIndex-=3;
 
 					if(this.children[this.childIndex] == null)
+					{
 						this.leftNode.style.visibility = "hidden";
+						this.leftLine.style.visibility = "hidden";
+					}
 					else
+					{
 						this.leftNode.style.visibility = "visible";
+						this.leftLine.style.visibility = "visible";
+					}
 					if(this.children[this.childIndex + 1] == null)
+					{
 						this.middleNode.style.visibility = "hidden";
+						this.middleLine.style.visibility = "hidden";
+					}
 					else
-						this.middleNode.style.visibility = "visible";
+					{
+						this.middleNode.style.visibility = "visible"
+						this.middleLine.style.visibility = "visible";
+					}
 					if(this.children[this.childIndex + 2] == null)
+					{
 						this.rightNode.style.visibility = "hidden";
+						this.rightLine.style.visibility = "hidden";
+					}
 					else
+					{
 						this.rightNode.style.visibility = "visible";
+						this.rightLine.style.visibility = "visible";
+					}
 
 					if(this.children[this.childIndex] != null)
 					{
@@ -261,17 +280,35 @@ if (isset($_GET['swap']))
 					this.childIndex+=3;
 
 					if(this.children[this.childIndex] == null)
+					{
 						this.leftNode.style.visibility = "hidden";
+						this.leftLine.style.visibility = "hidden";
+					}
 					else
+					{
 						this.leftNode.style.visibility = "visible";
+						this.leftLine.style.visibility = "visible";
+					}
 					if(this.children[this.childIndex + 1] == null)
+					{
 						this.middleNode.style.visibility = "hidden";
+						this.middleLine.style.visibility = "hidden";
+					}
 					else
+					{
 						this.middleNode.style.visibility = "visible";
+						this.middleLine.style.visibility = "visible";
+					}
 					if(this.children[this.childIndex + 2] == null)
+					{
 						this.rightNode.style.visibility = "hidden";
+						this.rightLine.style.visibility = "hidden";
+					}
 					else
+					{
 						this.rightNode.style.visibility = "visible";
+						this.rightLine.style.visibility = "visible";
+					}
 
 					if(this.children[this.childIndex] != null)
 					{
@@ -308,12 +345,14 @@ if (isset($_GET['swap']))
 			 }
 			 else
 			 {
+
 				 if(this.parentNode.children[this.parentNode.childIndex] != null && this.parentNode.children[this.parentNode.childIndex].expanded)
 				 		this.parentNode.children[this.parentNode.childIndex].collapse();
 				 else if(this.parentNode.children[this.parentNode.childIndex + 1] != null && this.parentNode.children[this.parentNode.childIndex + 1].expanded)
 				 		this.parentNode.children[this.parentNode.childIndex + 1].collapse();
 				 else if(this.parentNode.children[this.parentNode.childIndex + 2] != null && this.parentNode.children[this.parentNode.childIndex + 2].expanded)
 				 		this.parentNode.children[this.parentNode.childIndex + 2].collapse();
+
 				 var innerHTML = "";
 				 innerHTML = "<p>";
 				 var splitDesc = this.description.split("\\");
@@ -362,6 +401,10 @@ if (isset($_GET['swap']))
 							}
 
 							obj.childFrame.contentDocument.body.innerHTML = innerHTML;
+
+							obj.leftLine = obj.childFrame.contentDocument.body.children[0].children[0].children[0];
+							obj.middleLine = obj.childFrame.contentDocument.body.children[0].children[0].children[1];
+							obj.rightLine = obj.childFrame.contentDocument.body.children[0].children[0].children[2];
 
 							obj.leftArrow = obj.childFrame.contentDocument.body.children[1];
 

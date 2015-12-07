@@ -2,8 +2,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=1450, initial-scale=1">
- 	  <meta http-equiv="content-type" content="text/html; charset=windows-1250">
-  	<meta name="generator" content="PSPad editor, www.pspad.com">
+ 	  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="detailscss.css" type="text/css">
   	<title>Generating Results...</title>
