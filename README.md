@@ -22,7 +22,7 @@ Things Completed This Week:
 <br>
 Major Things to be Completed:
 ----------------------
-- [ ] Get the search.php to generate nodes from the new XSeek output files (this updated output file will likely be easier to parse and will fix some of the current search result problems).
+- [ ] Get search.php to generate nodes from the new XSeek output files (this updated output file will likely be easier to parse and will fix some of the current search result problems).
 - [ ] Rather than displaying all child nodes from a given search result at once, display the top n results, and create a button to view the rest if the user would like.
 - [ ] Denote child nodes that contain information with an arrow rather than a +. The + and - symbols will exclusively be for expanding nodes that do not already contain information.
 - [ ] Shorten the amount of space that root nodes take up when expanded. This will require some rewrites of the node expansion system to avoid scrollbars appearing in places that we do not want them.
@@ -32,4 +32,4 @@ Things to be Completed if Time Permits:
 ----------------------
 - [ ] Add a textbox to view a variable amount of child nodes under a parent node.
 - [ ] Add scrollbars under sets of child nodes to quickly navigate through them.
-- [ ] Fully clean up any deprecated HTML (this will take a while because there is a lot of code to cover).
+- [ ] Fully clean up any deprecated HTML (this will take a while because there is a lot of old code to cover).
