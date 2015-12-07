@@ -345,7 +345,6 @@ if (isset($_GET['swap']))
 			 }
 			 else
 			 {
-
 				 if(this.parentNode.children[this.parentNode.childIndex] != null && this.parentNode.children[this.parentNode.childIndex].expanded)
 				 		this.parentNode.children[this.parentNode.childIndex].collapse();
 				 else if(this.parentNode.children[this.parentNode.childIndex + 1] != null && this.parentNode.children[this.parentNode.childIndex + 1].expanded)
@@ -414,6 +413,16 @@ if (isset($_GET['swap']))
 								return false;
 							};
 
+							obj.leftArrow.getElementsByTagName("A")[0].onmouseover = function()
+							{
+								obj.leftArrow.getElementsByTagName("svg")[0].children[0].style.fill = "gray";
+							};
+
+							obj.leftArrow.getElementsByTagName("A")[0].onmouseout = function()
+							{
+								obj.leftArrow.getElementsByTagName("svg")[0].children[0].style.fill = "white";
+							};
+
 							obj.leftNode = obj.childFrame.contentDocument.body.children[2];
 							obj.children[0].childDiv = obj.childFrame.contentDocument.body.children[7];
 							obj.children[0].nodeSVG = obj.leftNode.getElementsByTagName("A")[0].getElementsByTagName("svg")[0];
@@ -423,6 +432,7 @@ if (isset($_GET['swap']))
 								toggleNode(obj.children[obj.childIndex]);
 								return false;
 							};
+
 							obj.middleNode = obj.childFrame.contentDocument.body.children[3];
 							obj.children[1].childDiv = obj.childFrame.contentDocument.body.children[7];
 							obj.children[1].nodeSVG = obj.middleNode.getElementsByTagName("A")[0].getElementsByTagName("svg")[0];
@@ -432,6 +442,7 @@ if (isset($_GET['swap']))
 								toggleNode(obj.children[obj.childIndex + 1]);
 								return false;
 							};
+
 							obj.rightNode = obj.childFrame.contentDocument.body.children[4];
 							obj.children[2].childDiv = obj.childFrame.contentDocument.body.children[7];
 							obj.children[2].nodeSVG = obj.rightNode.getElementsByTagName("A")[0].getElementsByTagName("svg")[0];
@@ -441,12 +452,25 @@ if (isset($_GET['swap']))
 								toggleNode(obj.children[obj.childIndex + 2]);
 								return false;
 							};
+
 							obj.rightArrow = obj.childFrame.contentDocument.body.children[5];
+
 							obj.rightArrow.getElementsByTagName("A")[0].onclick = function()
 							{
 								obj.moveChildNodesRight();
 								return false;
 							};
+
+							obj.rightArrow.getElementsByTagName("A")[0].onmouseover = function()
+							{
+								obj.rightArrow.getElementsByTagName("svg")[0].children[0].style.fill = "gray";
+							};
+
+							obj.rightArrow.getElementsByTagName("A")[0].onmouseout = function()
+							{
+								obj.rightArrow.getElementsByTagName("svg")[0].children[0].style.fill = "white";
+							};
+
 							obj.loadingText.style.display = "none";
 							obj.childFrame.style.display = "block";
 					 };
