@@ -481,9 +481,9 @@ if (isset($_GET['swap']))
 		}
 	}
 
-	function updateRes(checkno) {
+	function updateRes(checkno)
+	{
 		var contains = false;
-
 
 		for (i = 0; i < checkOut.length; i++)
 		{
@@ -1005,7 +1005,7 @@ for ($i = 1; $i < $size+1; $i++)
 
 	<p style="text-align:center">
 	<?php echo $cur.'.';?>
-	<input type="checkbox" name="selectedItems[]" value="<?php echo $cur;?>" onClick="<?php echo "updateChecked('$cur','".$searchResults_sn[$cur-1]["title"]["title"]."')" ?>" <?php if ($selectedItems[$cur] == true) echo "checked";?>>
+	<input autocomplete="off" type="checkbox" name="selectedItems[]" value="<?php echo $cur;?>" onClick="<?php echo "updateChecked('$cur','".$searchResults_sn[$cur-1]["title"]["title"]."')" ?>" <?php if ($selectedItems[$cur] == true) echo "checked";?>>
 	</input>
 	<br>
 
